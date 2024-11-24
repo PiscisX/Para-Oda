@@ -12,65 +12,116 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(to top, #2c3e50, #34495e); /* Fondo nocturno */
+            background-color: black; /* Fondo negro */
             overflow: hidden;
             position: relative;
         }
+
         .container {
             text-align: center;
             color: #fff;
-            animation: fadeIn 2s;
             z-index: 10;
         }
-        .message {
+
+        /* Estilo para el primer mensaje */
+        .initial-message {
             font-size: 1.8rem;
             font-weight: bold;
-            margin-bottom: 30px;
-            line-height: 1.5;
+            margin-bottom: 20px;
+            color: white;
         }
+
+        /* Nube celeste para el mensaje "¿Tú me quieres?" */
+        .question-cloud {
+            background-color: #88ccff;
+            display: inline-block;
+            padding: 20px;
+            border-radius: 30px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-top: 20px;
+            color: black;
+        }
+
         .flowers {
             display: flex;
             justify-content: center;
             gap: 15px;
             flex-wrap: wrap;
-            position: relative;
-            z-index: 5;
+            margin-top: 40px;
         }
+
         .flower {
             width: 100px;
             height: 100px;
-            background: url('https://raw.githubusercontent.com/PiscisX/Para-Oda/main/tulipanes.jpg') no-repeat center/cover;
+            background: url('https://raw.githubusercontent.com/PiscisX/Para-Oda/main/tulipanes.jpg?raw=true') no-repeat center/cover;
             border-radius: 50%;
-            animation: float 3s infinite;
+            cursor: pointer;
+            position: relative;
         }
+
+        /* Lluvia de corazones */
         .heart {
-            width: 60px;
-            height: 60px;
-            background: url('https://raw.githubusercontent.com/PiscisX/Para-Oda/main/tulipanes2.jpg') no-repeat center/cover;
-            border-radius: 50%;
-            animation: heartFloat 4s infinite;
             position: absolute;
-        }
-        /* Animaciones */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            width: 30px;
+            height: 30px;
+            background: url('https://i.imgur.com/3wdvygv.png') no-repeat center/cover;
+            background-size: contain;
+            animation: fall 2s linear infinite;
+            opacity: 1;
         }
 
-        @keyframes heartFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(360deg); }
+        @keyframes fall {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(100vh) scale(0.5); opacity: 0; }
         }
+
+        /* Estilo de los recuadros */
+        .box {
+            display: inline-block;
+            padding: 15px;
+            margin: 20px;
+            background-color: #ff8b8b;
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .box:hover {
+            background-color: #ff5b5b;
+        }
+
+        /* Estilo del texto que aparece cuando se da clic en "Sí" */
+        .hidden-message {
+            font-size: 2rem;
+            font-weight: bold;
+            color: red;
+            margin-top: 30px;
+        }
+
     </style>
 </head>
 <body>
+
     <div class="container">
-        <div class="message">Hola Sofi linda, cree esta página para recordarte que no debes preocuparte por ningún weon que no te ame, siempre serás mi amika y tqm, no te preocupes por esos que no te valoran.</div>
+        <!-- Mensaje inicial -->
+        <div class="initial-message">
+            Hola Sofi linda, cree esta pagina para recordarte que no debes preocuparte por ningun weon que no te ame, siempre seras mi amika y tqm, no te preocupes por esos que no te valoran
+        </div>
+        
+        <!-- Nube con "¿Tú me quieres?" -->
+        <div class="question-cloud">¿Tú me quieres?</div>
+        
+        <!-- Botones de Sí y No -->
+        <div class="box" onclick="handleClick('si')">Sí</div>
+        <div class="box" onclick="handleClick('no')">No</div>
+
+        <!-- El mensaje que aparece cuando se hace clic en "Sí" -->
+        <div class="hidden-message" id="hiddenMessage"></div>
+
+        <!-- Las flores que siguen -->
         <div class="flowers">
             <div class="flower"></div>
             <div class="flower"></div>
@@ -78,9 +129,42 @@
             <div class="flower"></div>
             <div class="flower"></div>
         </div>
-        <div class="heart" style="top: 30%; left: 20%;"></div>
-        <div class="heart" style="top: 40%; left: 40%;"></div>
-        <div class="heart" style="top: 50%; left: 60%;"></div>
     </div>
+
+    <script>
+        function generateHearts() {
+            for (let i = 0; i < 5; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.style.left = `${Math.random() * window.innerWidth}px`; // Posición aleatoria
+                heart.style.animationDuration = `${Math.random() * 3 + 2}s`; // Duración aleatoria
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 4000); // Corazones desaparecen después de 4 segundos
+            }
+        }
+
+        function handleClick(response) {
+            if (response === 'si') {
+                // Cambiar el texto al hacer clic en "Sí"
+                const message = document.getElementById('hiddenMessage');
+                message.textContent = "Yo también te quiero mucho";
+
+                // Lluvia de corazones
+                setInterval(generateHearts, 500); // Genera corazones cada 500ms
+            } else if (response === 'no') {
+                // Mover el recuadro "No" a una posición aleatoria
+                const noBox = document.querySelectorAll('.box')[1];
+                const randomX = Math.random() * window.innerWidth;
+                const randomY = Math.random() * window.innerHeight;
+                noBox.style.position = 'absolute';
+                noBox.style.left = `${randomX}px`;
+                noBox.style.top = `${randomY}px`;
+            }
+        }
+    </script>
+
 </body>
 </html>
