@@ -118,29 +118,11 @@
             color: pink;
             animation: grow 2s ease-in-out forwards;
             display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
         }
 
         @keyframes grow {
             0% { transform: scale(0); }
             100% { transform: scale(10); opacity: 0; }
-        }
-
-        .blood-text {
-            font-size: 3rem;
-            color: red;
-            text-shadow: 0 0 10px red, 0 0 20px red;
-            animation: bloodAnim 1s infinite;
-            opacity: 0;
-            text-align: center;
-        }
-
-        @keyframes bloodAnim {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
         }
     </style>
 </head>
@@ -183,10 +165,7 @@
         const heartsContainer = document.getElementById('hearts');
         const poem = document.getElementById('poem');
         const muack = document.getElementById('muack');
-        const bloodText = document.createElement('div');
         const main = document.getElementById('main');
-
-        let noClickCount = 0;
 
         btnYes.addEventListener('click', () => {
             main.innerHTML = '';
@@ -205,18 +184,21 @@
             createHeartRain();
         });
 
+        let noClickCount = 0;
+
         btnNo.addEventListener('click', () => {
             noClickCount++;
 
             if (noClickCount >= 3) {
-                bloodText.className = 'blood-text';
-                bloodText.textContent = '¿Por qué no me quieres?';
-                main.appendChild(bloodText);
-                bloodText.style.opacity = 1;
+                main.innerHTML = '<div style="color: red; font-size: 3rem; text-align: center; animation: fadeIn 2s;">DEBES QUERERME WEONA</div>';
 
                 setTimeout(() => {
-                    location.reload();
-                }, 5000);
+                    main.innerHTML = '<div style="color: white; font-size: 2rem; text-align: center; animation: fadeIn 2s;">Disculpa querida XD</div>';
+
+                    setTimeout(() => {
+                        location.reload();
+                    }, 3000);
+                }, 4000);
             } else {
                 btnNo.style.position = 'absolute';
                 btnNo.style.top = `${Math.random() * 80 + 10}%`;
