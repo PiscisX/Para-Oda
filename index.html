@@ -3,159 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Mi Mejor Amiga</title>
+    <title>Mensaje</title>
     <style>
         body {
             margin: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: black;
-            color: white;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .container {
-            text-align: center;
-            position: relative;
-        }
-
-        .title {
-            font-size: 2rem;
-            margin-bottom: 30px;
-        }
-
-        .question {
-            font-size: 1.8rem;
-            margin: 20px 0;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            background-color: black;
             color: white;
-            background-color: #ff69b4;
-        }
-
-        button:hover {
-            background-color: #ff1493;
-        }
-
-        .poem, .muack, .sadMessage {
-            display: none;
-            font-size: 1.5rem;
-            white-space: pre-wrap;
-        }
-
-        .poem {
-            font-size: 1.2rem;
-            animation: scrollUp 10s linear;
-        }
-
-        @keyframes scrollUp {
-            0% { transform: translateY(100%); }
-            100% { transform: translateY(-100%); }
-        }
-
-        .muack {
-            font-size: 5rem;
-            color: pink;
-            animation: grow 2s ease-in-out forwards;
-        }
-
-        @keyframes grow {
-            0% { transform: scale(0); }
-            100% { transform: scale(10); opacity: 0; }
-        }
-
-        .sadMessage {
-            font-size: 4rem;
-            color: red;
-            animation: sadAnimation 3s forwards;
-        }
-
-        @keyframes sadAnimation {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+            font-family: Arial, sans-serif;
+            font-size: 2rem;
         }
     </style>
 </head>
 <body>
-    <div class="container" id="main">
-        <div class="title">Hola Sofi linda, cree esta página para recordarte que no debes preocuparte por ningún weón que no te ame, siempre serás mi amika y tqm.</div>
-        <div class="question">¿Tú me quieres?</div>
-
-        <div class="buttons">
-            <button id="yes">Sí</button>
-            <button id="no">No</button>
-        </div>
-
-        <div class="poem" id="poem">
-            Una linda noche y un bello horizonte,<br>
-            nada se compara a tu belleza natural,<br>
-            una niña con futuro, una niña sin igual.<br><br>
-            En este tiempo de amistad fuiste la mejor amiga que pude encontrar,<br>
-            gracias por estar en mi vida y siempre te voy a amar,<br>
-            ojalá tengas una linda noche, descanses y duermas en paz,<br>
-            ya que siempre vas a tener un mejor amigo que te querrá sin igual.
-        </div>
-
-        <div class="muack" id="muack">¡Muaack!</div>
-
-        <div class="sadMessage" id="sadMessage">:(</div>
+    <div>
+        tqm odaa <3
     </div>
-
-    <script>
-        const btnYes = document.getElementById('yes');
-        const btnNo = document.getElementById('no');
-        const poem = document.getElementById('poem');
-        const muack = document.getElementById('muack');
-        const sadMessage = document.getElementById('sadMessage');
-        const mainContainer = document.getElementById('main');
-
-        // Función para mostrar el poema
-        function showPoem() {
-            mainContainer.style.display = 'none'; // Oculta el menú principal
-            poem.style.display = 'block';
-            setTimeout(() => {
-                poem.style.display = 'none';
-                muack.style.display = 'block';
-                setTimeout(() => {
-                    location.reload(); // Regresa al menú principal
-                }, 2000);
-            }, 10000); // Mostrar el poema durante 10 segundos
-        }
-
-        // Función para mostrar ":(" y volver al menú
-        function showSadMessage() {
-            mainContainer.style.display = 'none'; // Oculta el menú principal
-            sadMessage.style.display = 'block';
-            setTimeout(() => {
-                sadMessage.style.display = 'none';
-                location.reload(); // Regresa al menú principal
-            }, 3000); // Mostrar ":(" durante 3 segundos
-        }
-
-        // Cuando se hace clic en "Sí"
-        btnYes.addEventListener('click', () => {
-            showPoem(); // Muestra el poema
-        });
-
-        // Cuando se hace clic en "No"
-        btnNo.addEventListener('click', () => {
-            showSadMessage(); // Muestra ":("
-        });
-    </script>
 </body>
 </html>
