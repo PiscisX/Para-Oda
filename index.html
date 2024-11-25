@@ -32,6 +32,13 @@
             font-size: 3rem;
             color: pink;
         }
+        .copyright {
+            position: absolute;
+            bottom: 10px;
+            font-size: 0.8rem;
+            color: white;
+            opacity: 0.5;
+        }
     </style>
 </head>
 <body>
@@ -50,12 +57,27 @@
     <div class="muack" id="muack">
         Muaack!
     </div>
+    <div class="copyright">
+        Copyright © PiscisX
+    </div>
 
     <script>
-        window.onload = () => {
+        function startAnimation() {
             const message = document.getElementById('message');
             const poem = document.getElementById('poem');
             const muack = document.getElementById('muack');
+
+            // Reset the elements to their initial state
+            message.style.opacity = 1;
+            poem.style.opacity = 0;
+            poem.style.display = 'none';
+            muack.style.opacity = 0;
+            muack.style.display = 'none';
+
+            // Show the initial message
+            setTimeout(() => {
+                message.style.opacity = 1;
+            }, 2000);
 
             // Hide the initial message after 2 seconds
             setTimeout(() => {
@@ -78,16 +100,17 @@
                 }, 500);
             }, 13000);
 
-            // After Muaack disappears, return to the initial message
+            // After Muaack disappears, reset everything and start again
             setTimeout(() => {
                 muack.style.opacity = 0;
                 setTimeout(() => {
                     muack.style.display = 'none';
-                    message.style.display = 'block';
-                    message.style.opacity = 1;
+                    startAnimation(); // Restart the animation
                 }, 500);
             }, 16000);
-        };
+        }
+
+        window.onload = startAnimation;
     </script>
 </body>
 </html>
