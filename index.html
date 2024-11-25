@@ -15,12 +15,79 @@
             color: white;
             font-family: Arial, sans-serif;
             font-size: 2rem;
+            overflow: hidden;
+        }
+        .message, .poem, .muack {
+            text-align: center;
+            position: absolute;
+            transition: opacity 1s ease-in-out;
+        }
+        .poem {
+            display: none;
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+        .muack {
+            display: none;
+            font-size: 3rem;
+            color: pink;
         }
     </style>
 </head>
 <body>
-    <div>
+    <div class="message" id="message">
         tqm odaa <3
     </div>
+    <div class="poem" id="poem">
+        Una linda noche y un bello horizonte,<br>
+        nada se compara a tu belleza natural,<br>
+        una niña con futuro, una niña sin igual.<br>
+        En este tiempo de amistad fuiste la mejor amiga que pude encontrar,<br>
+        gracias por estar en mi vida y siempre te voy a amar,<br>
+        ojalá tengas una linda noche, descanses y duermas en paz,<br>
+        ya que siempre vas a tener un mejor amigo que te querrá sin igual.
+    </div>
+    <div class="muack" id="muack">
+        Muaack!
+    </div>
+
+    <script>
+        window.onload = () => {
+            const message = document.getElementById('message');
+            const poem = document.getElementById('poem');
+            const muack = document.getElementById('muack');
+
+            // Hide the initial message after 2 seconds
+            setTimeout(() => {
+                message.style.opacity = 0;
+            }, 2000);
+
+            // Show the poem after the message disappears
+            setTimeout(() => {
+                poem.style.display = 'block';
+                poem.style.opacity = 1;
+            }, 3000);
+
+            // Hide the poem after 10 seconds and show "Muaack"
+            setTimeout(() => {
+                poem.style.opacity = 0;
+                setTimeout(() => {
+                    poem.style.display = 'none';
+                    muack.style.display = 'block';
+                    muack.style.opacity = 1;
+                }, 500);
+            }, 13000);
+
+            // After Muaack disappears, return to the initial message
+            setTimeout(() => {
+                muack.style.opacity = 0;
+                setTimeout(() => {
+                    muack.style.display = 'none';
+                    message.style.display = 'block';
+                    message.style.opacity = 1;
+                }, 500);
+            }, 16000);
+        };
+    </script>
 </body>
 </html>
