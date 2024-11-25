@@ -1,205 +1,191 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Mi Mejor Amiga</title>
+    <title>Amistad para Sofi</title>
     <style>
         body {
             margin: 0;
-            font-family: 'Arial', sans-serif;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
-            background: #000;
             overflow: hidden;
-            position: relative;
-            color: white;
         }
 
-        .container {
+        #main {
             text-align: center;
         }
 
-        .message {
-            font-size: 1.8rem;
-            font-weight: bold;
+        #message {
+            font-size: 1.5rem;
             margin-bottom: 20px;
         }
 
-        .cloud {
-            background-color: #00BFFF;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
+        #question {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            background-color: pink;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
         }
 
         .heart {
+            width: 20px;
+            height: 20px;
+            background-color: pink;
             position: absolute;
-            width: 30px;
-            height: 30px;
-            background-color: #FF69B4;
+            animation: fadeInOut 3s infinite;
             transform: rotate(45deg);
-            opacity: 0;
-            animation: fall 3s infinite;
         }
 
         .heart::before,
         .heart::after {
             content: '';
+            width: 20px;
+            height: 20px;
+            background-color: pink;
             position: absolute;
-            width: 30px;
-            height: 30px;
-            background-color: #FF69B4;
             border-radius: 50%;
         }
 
         .heart::before {
+            top: -10px;
             left: 0;
-            top: -15px;
         }
 
         .heart::after {
+            left: 10px;
             top: 0;
-            left: 15px;
-        }
-
-        @keyframes fall {
-            0% {
-                opacity: 1;
-                transform: translateY(-100px);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(100vh);
-            }
-        }
-
-        @keyframes blink {
-            0%, 100% { background: black; }
-            50% { background: red; }
-        }
-
-        .flowers {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .flower {
-            width: 100px;
-            height: 100px;
-            background: url('https://github.com/PiscisX/Para-Oda/raw/main/tulipanes.jpg?raw=true') no-repeat center/cover;
-            border-radius: 50%;
-            animation: float 3s infinite;
-        }
-
-        .button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #FF69B4;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        .button:hover {
-            background-color: #FF1493;
-        }
-
-        .chaos-message {
-            position: absolute;
-            font-size: 2rem;
-            color: white;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: blink 0.5s infinite;
         }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <div class="cloud">
-            <div class="message">Hola Sofi linda, cree esta página para recordarte que no debes preocuparte por ningún weon que no te ame, siempre serás mi amika y tqm, no te preocupes por esos que no te valoran</div>
+    <div id="main">
+        <div id="message">
+            Hola Sofi linda, cree esta pagina para recordarte que no debes preocuparte por ningun weon que no te ame, siempre seras mi amika y tqm, no te preocupes por esos que no te valoran.
         </div>
-        <div class="message">Tu me quieres?</div>
-        <button id="yesBtn" class="button">Sí</button>
-        <button id="noBtn" class="button">No</button>
-        <div class="flowers">
-            <div class="flower"></div>
-            <div class="flower"></div>
-            <div class="flower"></div>
-            <div class="flower"></div>
-            <div class="flower"></div>
+        <div id="question">Me quieres?</div>
+        <div class="button-container">
+            <button id="yes-button">Sí</button>
+            <button id="no-button">No</button>
         </div>
     </div>
 
     <script>
-        let noCounter = 0;
+        const yesButton = document.getElementById('yes-button');
+        const noButton = document.getElementById('no-button');
+        const main = document.getElementById('main');
 
-        // Función para generar corazones
-        function generateHearts() {
-            let heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.style.left = Math.random() * window.innerWidth + 'px';
-            document.body.appendChild(heart);
+        let noClickCount = 0;
 
-            setTimeout(() => {
-                heart.remove();
-            }, 3000);
-        }
+        noButton.addEventListener('click', () => {
+            noClickCount++;
+            noButton.style.position = 'absolute';
+            noButton.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+            noButton.style.left = Math.random() * (window.innerWidth - 100) + 'px';
 
-        // Generar corazones de forma intensa
-        setInterval(generateHearts, 200);
+            if (noClickCount === 3) {
+                main.innerHTML = '';
+                document.body.style.backgroundColor = 'black';
 
-        // Lógica del botón "Sí"
-        document.getElementById("yesBtn").addEventListener("click", function () {
-            document.querySelector(".message").textContent = "Yo también te quiero mucho";
-            document.querySelector(".message").style.color = "red";
+                let interval = setInterval(() => {
+                    document.body.style.backgroundColor = document.body.style.backgroundColor === 'black' ? 'red' : 'black';
+                }, 100);
 
-            // Cambiar las flores a corazones
-            let flowers = document.querySelectorAll('.flower');
-            flowers.forEach(function (flower) {
-                flower.style.background = "url('https://github.com/PiscisX/Para-Oda/raw/main/tulipanes2.jpg?raw=true') no-repeat center/cover";
-                flower.style.borderRadius = "50%";
-            });
-        });
+                setTimeout(() => {
+                    clearInterval(interval);
+                    document.body.style.backgroundColor = 'black';
+                    main.innerHTML = '<div style="color: red; font-size: 3rem; animation: pulse 1s infinite;">DEBES QUERERME WEONAA</div>';
 
-        // Lógica del botón "No"
-        document.getElementById("noBtn").addEventListener("click", function () {
-            noCounter++;
-            let buttonNo = document.getElementById("noBtn");
-            buttonNo.style.position = "absolute";
-            buttonNo.style.left = Math.random() * window.innerWidth + 'px';
-            buttonNo.style.top = Math.random() * window.innerHeight + 'px';
+                    setTimeout(() => {
+                        main.innerHTML = '<div style="color: white; font-size: 2rem;">Disculpa querida XD</div>';
 
-            if (noCounter > 5) {
-                chaosMode();
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3000);
+                    }, 4000);
+                }, 4000);
             }
         });
 
-        // Modo caos
-        function chaosMode() {
-            document.body.style.animation = 'blink 0.5s infinite';
-            let chaosMessage = document.createElement('div');
-            chaosMessage.classList.add('chaos-message');
-            chaosMessage.textContent = "debes quererme weona";
-            document.body.appendChild(chaosMessage);
+        yesButton.addEventListener('click', () => {
+            main.innerHTML = '';
+
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.top = Math.random() * window.innerHeight + 'px';
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 3000);
+            }
+
+            setInterval(createHeart, 100);
 
             setTimeout(() => {
-                chaosMessage.remove();
-                document.body.style.animation = '';
-                document.querySelector(".message").textContent = "Upps sorry querida";
-                document.querySelector(".message").style.color = "pink";
-                noCounter = 0; // Resetear contador
+                const poem = `Amiga querida, en cada paso del camino,<br>
+                              Tu amistad es un regalo divino.<br>
+                              En los días oscuros y en la alegría,<br>
+                              Contigo todo se torna armonía.<br>
+                              Nunca olvides cuánto te valoro oda lindota,<br>
+                              Eres un tesoro que siempre atesoro.`;
+
+                main.innerHTML = `<div style='color: white; font-size: 1.5rem; text-align: center;'>${poem}</div>`;
+
+                setTimeout(() => {
+                    main.innerHTML = '<div style="font-size: 3rem; text-align: center;">Muaack!</div>';
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
+                }, 5000);
             }, 5000);
-        }
+        });
     </script>
 </body>
 </html>
