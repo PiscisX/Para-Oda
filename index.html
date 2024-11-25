@@ -14,18 +14,28 @@
         }
 
         .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             text-align: center;
             padding: 20px;
+        }
+
+        .content {
+            max-width: 90%;
+            width: 600px;
         }
 
         .title {
             font-size: 2rem;
             margin-bottom: 30px;
             animation: fadeIn 2s;
+            line-height: 1.5;
         }
 
         .question {
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin: 20px 0;
         }
 
@@ -124,25 +134,55 @@
             0% { transform: scale(0); }
             100% { transform: scale(10); opacity: 0; }
         }
+
+        .blood {
+            color: red;
+            font-family: 'Arial', sans-serif;
+            font-size: 3rem;
+            text-shadow: 0 0 20px red;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: bloodEffect 4s linear forwards;
+        }
+
+        @keyframes bloodEffect {
+            0% { opacity: 0; transform: scale(0) translate(-50%, -50%); }
+            50% { opacity: 1; transform: scale(1.2) translate(-50%, -50%); }
+            100% { opacity: 0; transform: scale(2) translate(-50%, -50%); }
+        }
+
+        .cpirig {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 1.5rem;
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
     </style>
 </head>
 <body>
     <div class="container" id="main">
-        <div class="title">Hola Sofi linda, cree esta página para recordarte que no debes preocuparte por ningún weón que no te ame, siempre serás mi amika y tqm. No te preocupes por esos que no te valoran.</div>
+        <div class="content">
+            <div class="title">Hola Sofi linda, cree esta página para recordarte que no debes preocuparte por ningún weón que no te ame, siempre serás mi amika y tqm. No te preocupes por esos que no te valoran.</div>
 
-        <div class="question">¿Tú me quieres?</div>
+            <div class="question">¿Tú me quieres?</div>
 
-        <div class="buttons">
-            <button id="yes">Sí</button>
-            <button id="no">No</button>
-        </div>
+            <div class="buttons">
+                <button id="yes">Sí</button>
+                <button id="no">No</button>
+            </div>
 
-        <div class="flowers" id="flowers">
-            <div class="flower"></div>
-            <div class="flower"></div>
-            <div class="flower"></div>
-            <div class="flower"></div>
-            <div class="flower"></div>
+            <div class="flowers" id="flowers">
+                <div class="flower"></div>
+                <div class="flower"></div>
+                <div class="flower"></div>
+                <div class="flower"></div>
+                <div class="flower"></div>
+            </div>
         </div>
 
         <div class="hearts" id="hearts"></div>
@@ -157,6 +197,7 @@
         </div>
 
         <div class="muack" id="muack">¡Muaack!</div>
+        <div class="cpirig">© PiscisX</div>
     </div>
 
     <script>
@@ -166,6 +207,12 @@
         const poem = document.getElementById('poem');
         const muack = document.getElementById('muack');
         const main = document.getElementById('main');
+        const bloodEffect = document.createElement('div');
+        bloodEffect.className = 'blood';
+        bloodEffect.innerHTML = "DEBES QUERERME WEONAA";
+        document.body.appendChild(bloodEffect);
+
+        let noClickCount = 0;
 
         btnYes.addEventListener('click', () => {
             main.innerHTML = '';
@@ -184,21 +231,25 @@
             createHeartRain();
         });
 
-        let noClickCount = 0;
-
         btnNo.addEventListener('click', () => {
             noClickCount++;
 
             if (noClickCount >= 3) {
-                main.innerHTML = '<div style="color: red; font-size: 3rem; text-align: center; animation: fadeIn 2s;">DEBES QUERERME WEONA</div>';
-
+                main.innerHTML = '';
                 setTimeout(() => {
-                    main.innerHTML = '<div style="color: white; font-size: 2rem; text-align: center; animation: fadeIn 2s;">Disculpa querida XD</div>';
-
+                    document.body.style.backgroundColor = 'black';
+                    bloodEffect.style.opacity = 1;
                     setTimeout(() => {
-                        location.reload();
-                    }, 3000);
-                }, 4000);
+                        bloodEffect.style.opacity = 0;
+                        setTimeout(() => {
+                            main.innerHTML = '<div style="color: white; font-size: 2rem; text-align: center; animation: fadeIn 2s;">Disculpa querida XD</div>';
+
+                            setTimeout(() => {
+                                location.reload();
+                            }, 3000);
+                        }, 4000);
+                    }, 4000);
+                }, 1000);
             } else {
                 btnNo.style.position = 'absolute';
                 btnNo.style.top = `${Math.random() * 80 + 10}%`;
