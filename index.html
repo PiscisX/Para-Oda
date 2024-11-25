@@ -1,224 +1,189 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Mi Mejor Amiga</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: black;
-            color: white;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interacción de Amistad</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      background-color: black;
+    }
+    
+    /* Fondo de flores */
+    .background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://path_to_your_flower_image.jpg');
+      background-size: cover;
+      z-index: -1;
+    }
 
-        .container {
-            text-align: center;
-            padding: 20px;
-        }
+    /* Estilos del texto principal */
+    .main-text {
+      color: white;
+      text-align: center;
+      font-size: 2rem;
+      margin-top: 20%;
+    }
 
-        .title {
-            font-size: 2rem;
-            margin-bottom: 30px;
-            animation: fadeIn 2s;
-        }
+    /* Estilo de la pregunta */
+    .question {
+      font-size: 1.5rem;
+      color: white;
+    }
 
-        .question {
-            font-size: 1.8rem;
-            margin: 20px 0;
-        }
+    /* Botones */
+    .button {
+      padding: 15px 30px;
+      margin: 20px;
+      font-size: 1.2rem;
+      color: white;
+      background-color: #FF69B4;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
 
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
+    .button:hover {
+      transform: scale(1.1);
+    }
 
-        button {
-            padding: 10px 20px;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
-            background-color: #ff69b4;
-        }
+    /* Animación de letras sangrientas */
+    .blood-text {
+      font-size: 2rem;
+      color: red;
+      font-family: 'Creepster', cursive;
+      animation: bloodEffect 0.5s infinite alternate;
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red;
+    }
 
-        button:hover {
-            background-color: #ff1493;
-        }
+    @keyframes bloodEffect {
+      0% {
+        opacity: 0;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1);
+      }
+    }
 
-        .flowers {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
+    /* Animación de aparición de "Muaack!" */
+    .muaack {
+      font-size: 10rem;
+      color: pink;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: muaackEffect 3s ease-out forwards;
+    }
 
-        .flower {
-            width: 80px;
-            height: 80px;
-            background: url('https://github.com/PiscisX/Para-Oda/blob/main/tulipanes.jpg?raw=true') no-repeat center/cover;
-            border-radius: 50%;
-        }
+    @keyframes muaackEffect {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.5);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
 
-        .hearts {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .heart {
-            width: 30px;
-            height: 30px;
-            background: red;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            animation: fall 4s linear infinite;
-            clip-path: polygon(50% 0%, 61% 16%, 75% 16%, 100% 50%, 50% 100%, 0% 50%, 25% 16%, 39% 16%);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateX(0) translateY(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(calc(-50vw + 100px)) translateY(-100vh);
-                opacity: 0;
-            }
-        }
-
-        .poem {
-            font-size: 1.5rem;
-            animation: scrollUp 10s linear;
-            white-space: pre-wrap;
-        }
-
-        @keyframes scrollUp {
-            0% { transform: translateY(100%); }
-            100% { transform: translateY(-100%); }
-        }
-
-        .muack {
-            font-size: 5rem;
-            color: pink;
-            animation: grow 2s ease-in-out forwards;
-            display: none;
-        }
-
-        @keyframes grow {
-            0% { transform: scale(0); }
-            100% { transform: scale(10); opacity: 0; }
-        }
-    </style>
+    /* Poema */
+    .poem {
+      font-size: 1.5rem;
+      color: white;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-    <div class="container" id="main">
-        <div class="title">Hola Sofi linda, cree esta página para recordarte que no debes preocuparte por ningún weón que no te ame, siempre serás mi amika y tqm. No te preocupes por esos que no te valoran.</div>
+  <div class="background"></div>
+  <div class="main-text">
+    <div class="question">¿Me quieres?</div>
+    <button class="button" id="yesButton">Sí</button>
+    <button class="button" id="noButton">No</button>
+  </div>
 
-        <div class="question">¿Tú me quieres?</div>
+  <div class="poem" id="poem">
+    <p>Una linda noche y un bello horizonte, nada se compara a tu belleza natural, una niña con futuro, una niña sin igual.</p>
+    <p>En este tiempo de amistad, fuiste la mejor amiga que pude encontrar. Gracias por estar en mi vida y siempre te voy a amar. Ojalá tengas una linda noche, descanses y duermas en paz, ya que siempre vas a tener un mejor amigo que te querrá sin igual.</p>
+  </div>
 
-        <div class="buttons">
-            <button id="yes">Sí</button>
-            <button id="no">No</button>
-        </div>
+  <div class="blood-text" id="bloodText" style="display: none;">DEBES QUERERME WEONAA</div>
+  <div class="muaack" id="muaack" style="display: none;">Muaack!</div>
 
-        <div class="flowers" id="flowers">
-            <div class="flower"></div>
-            <div class="flower"></div>
-            <div class="flower"></div>
-            <div class="flower"></div>
-            <div class="flower"></div>
-        </div>
+  <script>
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const bloodText = document.getElementById('bloodText');
+    const poem = document.getElementById('poem');
+    const muaack = document.getElementById('muaack');
 
-        <div class="hearts" id="hearts"></div>
+    yesButton.addEventListener('click', () => {
+      // Lluvia de corazones
+      let heartRain = setInterval(() => {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.style.position = 'absolute';
+        heart.style.fontSize = '2rem';
+        heart.style.top = Math.random() * 100 + 'vh';
+        heart.style.left = Math.random() * 100 + 'vw';
+        document.body.appendChild(heart);
+        setTimeout(() => {
+          heart.remove();
+        }, 2000);
+      }, 100);
 
-        <div class="poem" id="poem" style="display:none;">
-            Amiga querida, en cada paso del camino,<br>
-            Tu amistad es un regalo divino.<br>
-            En los días oscuros y en la alegría,<br>
-            Contigo todo se torna armonía.<br>
-            Nunca olvides cuánto te valoro, oda lindota,<br>
-            Eres un tesoro que siempre atesoro.
-        </div>
+      // Poema
+      setTimeout(() => {
+        poem.style.display = 'block';
+        setTimeout(() => {
+          poem.style.display = 'none';
+          // Mensaje de "Muaack!"
+          muaack.style.display = 'block';
+          setTimeout(() => {
+            muaack.style.display = 'none';
+            location.reload();  // Regresa a la pantalla inicial
+          }, 3000);
+        }, 6000); // Duración del poema
+      }, 2000);
+    });
 
-        <div class="muack" id="muack">¡Muaack!</div>
-    </div>
-
-    <script>
-        const btnYes = document.getElementById('yes');
-        const btnNo = document.getElementById('no');
-        const heartsContainer = document.getElementById('hearts');
-        const poem = document.getElementById('poem');
-        const muack = document.getElementById('muack');
-        const main = document.getElementById('main');
-
-        btnYes.addEventListener('click', () => {
-            main.innerHTML = '';
-            poem.style.display = 'block';
-
-            setTimeout(() => {
-                poem.style.display = 'none';
-                muack.style.display = 'block';
-                muack.classList.add('grow');
-
-                setTimeout(() => {
-                    location.reload();
-                }, 2000);
-            }, 10000);
-
-            createHeartRain();
-        });
-
-        let noClickCount = 0;
-
-        btnNo.addEventListener('click', () => {
-            noClickCount++;
-
-            if (noClickCount >= 3) {
-                main.innerHTML = '<div style="color: red; font-size: 3rem; text-align: center; animation: fadeIn 2s;">DEBES QUERERME WEONA</div>';
-
-                setTimeout(() => {
-                    main.innerHTML = '<div style="color: white; font-size: 2rem; text-align: center; animation: fadeIn 2s;">Disculpa querida XD</div>';
-
-                    setTimeout(() => {
-                        location.reload();
-                    }, 3000);
-                }, 4000);
-            } else {
-                btnNo.style.position = 'absolute';
-                btnNo.style.top = `${Math.random() * 80 + 10}%`;
-                btnNo.style.left = `${Math.random() * 80 + 10}%`;
-            }
-        });
-
-        function createHeartRain() {
-            for (let i = 0; i < 100; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDelay = Math.random() * 2 + 's';
-                heartsContainer.appendChild(heart);
-
-                setTimeout(() => {
-                    heart.remove();
-                }, 4000);
-            }
-        }
-    </script>
+    noButton.addEventListener('click', () => {
+      // Efecto sangriento
+      bloodText.style.display = 'block';
+      setTimeout(() => {
+        bloodText.style.display = 'none';
+        // Mensaje de disculpas
+        alert('Disculpa querida XD');
+        location.reload();  // Regresa a la pantalla inicial
+      }, 4000);  // Duración del efecto
+    });
+  </script>
 </body>
 </html>
