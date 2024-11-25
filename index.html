@@ -11,31 +11,23 @@
             background-color: black;
             color: white;
             overflow: hidden;
+            height: 100vh;
         }
 
         .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             text-align: center;
             padding: 20px;
-        }
-
-        .content {
-            max-width: 90%;
-            width: 600px;
+            position: relative;
         }
 
         .title {
             font-size: 2rem;
             margin-bottom: 30px;
             animation: fadeIn 2s;
-            line-height: 1.5;
         }
 
         .question {
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin: 20px 0;
         }
 
@@ -112,12 +104,6 @@
             }
         }
 
-        .poem {
-            font-size: 1.5rem;
-            animation: scrollUp 10s linear;
-            white-space: pre-wrap;
-        }
-
         @keyframes scrollUp {
             0% { transform: translateY(100%); }
             100% { transform: translateY(-100%); }
@@ -135,54 +121,57 @@
             100% { transform: scale(10); opacity: 0; }
         }
 
-        .blood {
+        .poem {
+            font-size: 1.5rem;
+            animation: scrollUp 10s linear;
+            white-space: pre-wrap;
+        }
+
+        .crying-text {
+            font-size: 4rem;
             color: red;
-            font-family: 'Arial', sans-serif;
-            font-size: 3rem;
-            text-shadow: 0 0 20px red;
-            position: fixed;
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            opacity: 0;
-            animation: bloodEffect 4s linear forwards;
+            text-align: center;
+            animation: bloodMessage 5s infinite;
         }
 
-        @keyframes bloodEffect {
-            0% { opacity: 0; transform: scale(0) translate(-50%, -50%); }
-            50% { opacity: 1; transform: scale(1.2) translate(-50%, -50%); }
-            100% { opacity: 0; transform: scale(2) translate(-50%, -50%); }
+        @keyframes bloodMessage {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
-        .cpirig {
-            position: fixed;
+        .copyright {
+            position: absolute;
             bottom: 10px;
             left: 10px;
-            font-size: 1.5rem;
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
             color: white;
-            font-family: 'Arial', sans-serif;
+            opacity: 0.5;
         }
     </style>
 </head>
 <body>
     <div class="container" id="main">
-        <div class="content">
-            <div class="title">Hola Sofi linda, cree esta página para recordarte que no debes preocuparte por ningún weón que no te ame, siempre serás mi amika y tqm. No te preocupes por esos que no te valoran.</div>
+        <div class="title">Hola Sofi linda, cree esta página para recordarte que no debes preocuparte por ningún weón que no te ame, siempre serás mi amika y tqm. No te preocupes por esos que no te valoran.</div>
 
-            <div class="question">¿Tú me quieres?</div>
+        <div class="question">¿Tú me quieres?</div>
 
-            <div class="buttons">
-                <button id="yes">Sí</button>
-                <button id="no">No</button>
-            </div>
+        <div class="buttons">
+            <button id="yes">Sí</button>
+            <button id="no">No</button>
+        </div>
 
-            <div class="flowers" id="flowers">
-                <div class="flower"></div>
-                <div class="flower"></div>
-                <div class="flower"></div>
-                <div class="flower"></div>
-                <div class="flower"></div>
-            </div>
+        <div class="flowers" id="flowers">
+            <div class="flower"></div>
+            <div class="flower"></div>
+            <div class="flower"></div>
+            <div class="flower"></div>
+            <div class="flower"></div>
         </div>
 
         <div class="hearts" id="hearts"></div>
@@ -197,7 +186,8 @@
         </div>
 
         <div class="muack" id="muack">¡Muaack!</div>
-        <div class="cpirig">© PiscisX</div>
+        <div class="crying-text" id="crying-text" style="display:none;">POR QUE NO ME QUIERES?</div>
+        <div class="copyright">© PiscisX</div>
     </div>
 
     <script>
@@ -207,10 +197,8 @@
         const poem = document.getElementById('poem');
         const muack = document.getElementById('muack');
         const main = document.getElementById('main');
-        const bloodEffect = document.createElement('div');
-        bloodEffect.className = 'blood';
-        bloodEffect.innerHTML = "DEBES QUERERME WEONAA";
-        document.body.appendChild(bloodEffect);
+        const cryingText = document.getElementById('crying-text');
+        const flowers = document.getElementById('flowers');
 
         let noClickCount = 0;
 
@@ -237,37 +225,31 @@
             if (noClickCount >= 3) {
                 main.innerHTML = '';
                 setTimeout(() => {
+                    cryingText.style.display = 'block';
                     document.body.style.backgroundColor = 'black';
-                    bloodEffect.style.opacity = 1;
                     setTimeout(() => {
-                        bloodEffect.style.opacity = 0;
+                        cryingText.style.display = 'none';
+                        main.innerHTML = '<div style="color: white; font-size: 2rem; text-align: center; animation: fadeIn 2s;">Disculpa querida XD</div>';
                         setTimeout(() => {
-                            main.innerHTML = '<div style="color: white; font-size: 2rem; text-align: center; animation: fadeIn 2s;">Disculpa querida XD</div>';
-
-                            setTimeout(() => {
-                                location.reload();
-                            }, 3000);
-                        }, 4000);
-                    }, 4000);
-                }, 1000);
+                            location.reload();
+                        }, 2000);
+                    }, 5000);
+                }, 0);
             } else {
+                // Teletransportación del botón "No"
                 btnNo.style.position = 'absolute';
-                btnNo.style.top = `${Math.random() * 80 + 10}%`;
-                btnNo.style.left = `${Math.random() * 80 + 10}%`;
+                btnNo.style.top = Math.random() * 100 + '%';
+                btnNo.style.left = Math.random() * 100 + '%';
             }
         });
 
         function createHeartRain() {
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 50; i++) {
                 const heart = document.createElement('div');
-                heart.className = 'heart';
+                heart.classList.add('heart');
                 heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.animationDuration = Math.random() * 3 + 2 + 's';
                 heartsContainer.appendChild(heart);
-
-                setTimeout(() => {
-                    heart.remove();
-                }, 4000);
             }
         }
     </script>
