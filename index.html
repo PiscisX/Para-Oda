@@ -15,12 +15,11 @@
             background: #000;
             overflow: hidden;
             position: relative;
+            color: white;
         }
 
         .container {
             text-align: center;
-            color: #fff;
-            animation: fadeIn 2s;
         }
 
         .message {
@@ -29,7 +28,6 @@
             margin-bottom: 20px;
         }
 
-        /* Nube celeste */
         .cloud {
             background-color: #00BFFF;
             border-radius: 15px;
@@ -37,51 +35,50 @@
             margin-bottom: 30px;
         }
 
-        /* Corazones */
         .heart {
             position: absolute;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             background-color: #FF69B4;
             transform: rotate(45deg);
             opacity: 0;
-            animation: fall 5s infinite;
+            animation: fall 3s infinite;
         }
 
         .heart::before,
         .heart::after {
             content: '';
             position: absolute;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             background-color: #FF69B4;
             border-radius: 50%;
         }
 
         .heart::before {
             left: 0;
-            top: -20px;
+            top: -15px;
         }
 
         .heart::after {
             top: 0;
-            left: 20px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
+            left: 15px;
         }
 
         @keyframes fall {
             0% {
                 opacity: 1;
-                transform: rotate(45deg) translateY(-100px);
+                transform: translateY(-100px);
             }
             100% {
                 opacity: 0;
-                transform: rotate(45deg) translateY(100vh);
+                transform: translateY(100vh);
             }
+        }
+
+        @keyframes blink {
+            0%, 100% { background: black; }
+            50% { background: red; }
         }
 
         .flowers {
@@ -99,15 +96,6 @@
             animation: float 3s infinite;
         }
 
-        .hearts {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        /* Botones */
         .button {
             margin-top: 20px;
             padding: 10px 20px;
@@ -123,13 +111,22 @@
             background-color: #FF1493;
         }
 
+        .chaos-message {
+            position: absolute;
+            font-size: 2rem;
+            color: white;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: blink 0.5s infinite;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <div class="cloud">
-            <div class="message">Hola Sofi linda, cree esta pagina para recordarte que no debes preocuparte por ningun weon que no te ame, siempre seras mi amika y tqm, no te preocupes por esos que no te valoran</div>
+            <div class="message">Hola Sofi linda, cree esta página para recordarte que no debes preocuparte por ningún weon que no te ame, siempre serás mi amika y tqm, no te preocupes por esos que no te valoran</div>
         </div>
         <div class="message">Tu me quieres?</div>
         <button id="yesBtn" class="button">Sí</button>
@@ -144,6 +141,8 @@
     </div>
 
     <script>
+        let noCounter = 0;
+
         // Función para generar corazones
         function generateHearts() {
             let heart = document.createElement('div');
@@ -151,37 +150,56 @@
             heart.style.left = Math.random() * window.innerWidth + 'px';
             document.body.appendChild(heart);
 
-            // Eliminar el corazón después de la animación
-            setTimeout(function() {
+            setTimeout(() => {
                 heart.remove();
-            }, 5000);
+            }, 3000);
         }
 
-        // Generar corazones cada 500ms
-        setInterval(generateHearts, 500);
+        // Generar corazones de forma intensa
+        setInterval(generateHearts, 200);
 
         // Lógica del botón "Sí"
-        document.getElementById("yesBtn").addEventListener("click", function() {
-            // Cambiar el texto
+        document.getElementById("yesBtn").addEventListener("click", function () {
             document.querySelector(".message").textContent = "Yo también te quiero mucho";
-            document.querySelector(".message").style.color = "red"; // Cambiar color a rojo
+            document.querySelector(".message").style.color = "red";
 
             // Cambiar las flores a corazones
             let flowers = document.querySelectorAll('.flower');
-            flowers.forEach(function(flower) {
+            flowers.forEach(function (flower) {
                 flower.style.background = "url('https://github.com/PiscisX/Para-Oda/raw/main/tulipanes2.jpg?raw=true') no-repeat center/cover";
                 flower.style.borderRadius = "50%";
             });
         });
 
         // Lógica del botón "No"
-        document.getElementById("noBtn").addEventListener("click", function() {
-            // Teletransportar el botón "No"
+        document.getElementById("noBtn").addEventListener("click", function () {
+            noCounter++;
             let buttonNo = document.getElementById("noBtn");
             buttonNo.style.position = "absolute";
             buttonNo.style.left = Math.random() * window.innerWidth + 'px';
             buttonNo.style.top = Math.random() * window.innerHeight + 'px';
+
+            if (noCounter > 5) {
+                chaosMode();
+            }
         });
+
+        // Modo caos
+        function chaosMode() {
+            document.body.style.animation = 'blink 0.5s infinite';
+            let chaosMessage = document.createElement('div');
+            chaosMessage.classList.add('chaos-message');
+            chaosMessage.textContent = "debes quererme weona";
+            document.body.appendChild(chaosMessage);
+
+            setTimeout(() => {
+                chaosMessage.remove();
+                document.body.style.animation = '';
+                document.querySelector(".message").textContent = "Upps sorry querida";
+                document.querySelector(".message").style.color = "pink";
+                noCounter = 0; // Resetear contador
+            }, 5000);
+        }
     </script>
 </body>
 </html>
