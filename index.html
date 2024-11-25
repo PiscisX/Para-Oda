@@ -126,6 +126,7 @@
 
         // Mostrar poema
         function showPoem() {
+            mainContainer.style.display = 'none'; // Oculta el menú principal
             poem.style.display = 'block';
             setTimeout(() => {
                 poem.style.display = 'none';
@@ -138,6 +139,7 @@
 
         // Mostrar ":(" y volver al menú
         function showSadMessage() {
+            mainContainer.style.display = 'none'; // Oculta el menú principal
             sadMessage.style.display = 'block';
             setTimeout(() => {
                 sadMessage.style.display = 'none';
@@ -147,13 +149,11 @@
 
         // Cuando se hace clic en "Sí"
         btnYes.addEventListener('click', () => {
-            mainContainer.style.display = 'none'; // Borra todo el menú principal
             showPoem(); // Muestra el poema
         });
 
         // Cuando se hace clic en "No"
         btnNo.addEventListener('click', () => {
-            mainContainer.style.display = 'none'; // Borra todo el menú principal
             showSadMessage(); // Muestra ":("
         });
     </script>
