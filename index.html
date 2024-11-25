@@ -7,215 +7,193 @@
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             background-color: black;
             color: white;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            text-align: center;
             overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
             position: relative;
         }
 
-        #content {
-            position: relative;
+        .title {
+            font-size: 2rem;
+            margin-bottom: 30px;
         }
 
-        #question {
-            font-size: 24px;
-            margin-bottom: 20px;
+        .question {
+            font-size: 1.8rem;
+            margin: 20px 0;
         }
 
-        .button {
-            background-color: #ff66b2;
-            color: white;
-            font-size: 18px;
-            padding: 15px 25px;
-            margin: 10px;
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
-            border-radius: 10px;
+            color: white;
+            background-color: #ff69b4;
         }
 
-        .button:hover {
-            background-color: #ff3385;
+        button:hover {
+            background-color: #ff1493;
         }
 
-        #tulip {
-            margin-top: 30px;
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
         }
 
         .heart {
+            width: 30px;
+            height: 30px;
+            background-color: #ff0000;
             position: absolute;
-            font-size: 40px;
-            animation: heartAnimation 1s linear infinite;
+            animation: fall 4s linear infinite;
         }
 
-        @keyframes heartAnimation {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(-100vh);
-                opacity: 0;
-            }
+        @keyframes fall {
+            0% { transform: translateY(0) translateX(0); opacity: 1; }
+            100% { transform: translateY(100vh) translateX(calc(-50vw + 100px)); opacity: 0; }
         }
 
-        .fade-out {
-            animation: fadeOut 3s forwards;
-        }
-
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        #poem {
-            font-size: 20px;
+        .poem {
+            font-size: 1.5rem;
             margin-top: 20px;
             display: none;
+            animation: scrollUp 10s linear;
+            white-space: pre-wrap;
         }
 
-        #muack {
-            font-size: 50px;
-            color: #ff66b2;
-            display: none;
-            animation: muackAnimation 2s forwards;
+        @keyframes scrollUp {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(-100%); }
         }
 
-        @keyframes muackAnimation {
-            0% {
-                font-size: 50px;
-                opacity: 1;
-            }
-            100% {
-                font-size: 200px;
-                opacity: 0;
-            }
-        }
-
-        .hidden {
+        .muack {
+            font-size: 5rem;
+            color: pink;
+            animation: grow 2s ease-in-out forwards;
             display: none;
         }
 
-        .center-text {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 30px;
+        @keyframes grow {
+            0% { transform: scale(0); }
+            100% { transform: scale(10); opacity: 0; }
         }
 
-        .noButton {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+        .message {
+            font-size: 3rem;
+            color: red;
+            display: none;
         }
     </style>
 </head>
 <body>
+    <div class="container" id="main">
+        <div class="title">Hola Sofi linda, cree esta página para recordarte que no debes preocuparte por ningún weón que no te ame, siempre serás mi amika y tqm.</div>
+        <div class="question">¿Tú me quieres?</div>
 
-    <div id="content">
-        <div id="question">
-            Hola Sofi linda, cree esta página para recordarte que no debes preocuparte por ningún weón que no te ame, siempre serás mi amika y tqm. No te preocupes por esos que no te valoran.
-        </div>
-        <div id="question" class="center-text">
-            ¿Tú me quieres?
-        </div>
-        <button class="button" id="yesButton">Sí</button>
-        <button class="button noButton" id="noButton">No</button>
-
-        <div id="tulip">
-            <img src="https://www.example.com/tulip.png" alt="Tulip" width="50">
-            <img src="https://www.example.com/tulip.png" alt="Tulip" width="50">
-            <img src="https://www.example.com/tulip.png" alt="Tulip" width="50">
-            <img src="https://www.example.com/tulip.png" alt="Tulip" width="50">
-            <img src="https://www.example.com/tulip.png" alt="Tulip" width="50">
+        <div class="buttons">
+            <button id="yes">Sí</button>
+            <button id="no">No</button>
         </div>
 
-        <div id="poem" class="fade-out">
-            <p>Una linda noche y un bello horizonte,</p>
-            <p>nada se compara a tu belleza natural,</p>
-            <p>una niña con futuro, una niña sin igual.</p>
-            <p>En este tiempo de amistad, fuiste la mejor amiga que pude encontrar,</p>
-            <p>gracias por estar en mi vida, y siempre te voy a amar.</p>
-            <p>Ojalá tengas una linda noche, descanses y duermas en paz,</p>
-            <p>ya que siempre vas a tener un mejor amigo que te querrá sin igual.</p>
+        <div class="poem" id="poem">
+            Una linda noche y un bello horizonte,<br>
+            nada se compara a tu belleza natural,<br>
+            una niña con futuro, una niña sin igual.<br><br>
+            En este tiempo de amistad fuiste la mejor amiga que pude encontrar,<br>
+            gracias por estar en mi vida y siempre te voy a amar,<br>
+            ojalá tengas una linda noche, descanses y duermas en paz,<br>
+            ya que siempre vas a tener un mejor amigo que te querrá sin igual.
         </div>
 
-        <div id="muack" class="hidden">Muaack!</div>
+        <div class="muack" id="muack">¡Muaack!</div>
 
+        <div class="hearts" id="hearts"></div>
+        <div class="message" id="message">¿Por qué no me quieres? :c</div>
     </div>
 
     <script>
-        let yesButton = document.getElementById("yesButton");
-        let noButton = document.getElementById("noButton");
-        let tulip = document.getElementById("tulip");
-        let poem = document.getElementById("poem");
-        let muack = document.getElementById("muack");
-        let questionDiv = document.getElementById("question");
+        const btnYes = document.getElementById('yes');
+        const btnNo = document.getElementById('no');
+        const poem = document.getElementById('poem');
+        const muack = document.getElementById('muack');
+        const heartsContainer = document.getElementById('hearts');
+        const message = document.getElementById('message');
+        const mainContainer = document.getElementById('main');
         let noClickCount = 0;
 
-        yesButton.addEventListener("click", () => {
-            tulip.classList.add("hidden");
-            poem.style.display = "block";
-            setTimeout(() => {
-                muack.style.display = "block";
-            }, 10000); // After 10 seconds, show "Muaack!"
-            setTimeout(() => {
-                location.reload();
-            }, 12000); // After 12 seconds, reload page
-        });
-
-        noButton.addEventListener("click", () => {
-            noClickCount++;
-            if (noClickCount < 3) {
-                let newNoButton = document.createElement("button");
-                newNoButton.textContent = "No";
-                newNoButton.classList.add("button");
-                newNoButton.style.position = "absolute";
-                newNoButton.style.left = `${Math.random() * window.innerWidth}px`;
-                newNoButton.style.top = `${Math.random() * window.innerHeight}px`;
-                document.body.appendChild(newNoButton);
-                newNoButton.addEventListener("click", () => {
-                    newNoButton.style.left = `${Math.random() * window.innerWidth}px`;
-                    newNoButton.style.top = `${Math.random() * window.innerHeight}px`;
-                });
-            } else {
-                questionDiv.textContent = "¿Por qué no me quieres? :c";
-                questionDiv.classList.add("fade-out");
-                setTimeout(() => {
-                    location.reload();
-                }, 3000); // After 3 seconds, reload page
-            }
-        });
-
-        // Function to create Minecraft-style hearts
+        // Función para crear los corazones de Minecraft
         function createHearts() {
-            for (let i = 0; i < 100; i++) { // Creating 100 hearts to make it abundant
-                let heart = document.createElement("div");
-                heart.classList.add("heart");
-                heart.textContent = "💖"; // Minecraft style heart as emoji (to mimic blocks)
-                heart.style.left = `${Math.random() * window.innerWidth}px`;
-                heart.style.top = `${Math.random() * window.innerHeight}px`;
-                document.body.appendChild(heart);
-                setTimeout(() => {
-                    heart.remove();
-                }, 1000); // Heart disappears after 1 second
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heartsContainer.appendChild(heart);
+                setTimeout(() => heart.remove(), 4000);
             }
         }
 
-        yesButton.addEventListener("click", () => {
+        // Función para mostrar el poema
+        function showPoem() {
+            poem.style.display = 'block';
+            setTimeout(() => {
+                poem.style.display = 'none';
+                muack.style.display = 'block';
+                muack.classList.add('grow');
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+            }, 10000);
+        }
+
+        // Función cuando se da click en "Sí"
+        btnYes.addEventListener('click', () => {
             createHearts();
+            showPoem();
+        });
+
+        // Función cuando se da click en "No"
+        btnNo.addEventListener('click', () => {
+            noClickCount++;
+            // Si se hace clic en "No" 3 veces, desaparece el menú y muestra el mensaje
+            if (noClickCount >= 3) {
+                mainContainer.style.display = 'none'; // Oculta el menú principal
+                setTimeout(() => {
+                    message.style.display = 'block';
+                    setTimeout(() => {
+                        message.style.display = 'none';
+                        location.reload(); // Regresa al menú principal
+                    }, 3000);
+                }, 500);
+            } else {
+                // Mueve el botón "No"
+                btnNo.style.position = 'absolute';
+                btnNo.style.top = `${Math.random() * 80 + 10}%`;
+                btnNo.style.left = `${Math.random() * 80 + 10}%`;
+            }
         });
     </script>
-
 </body>
 </html>
