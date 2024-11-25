@@ -52,35 +52,15 @@
             background-color: #ff1493;
         }
 
-        .hearts {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .heart {
-            width: 30px;
-            height: 30px;
-            background-color: #ff0000;
-            position: absolute;
-            animation: fall 4s linear infinite;
-        }
-
-        @keyframes fall {
-            0% { transform: translateY(0) translateX(0); opacity: 1; }
-            100% { transform: translateY(100vh) translateX(calc(-50vw + 100px)); opacity: 0; }
+        .poem, .muack, .sadMessage {
+            display: none;
+            font-size: 1.5rem;
+            white-space: pre-wrap;
         }
 
         .poem {
-            font-size: 1.5rem;
-            margin-top: 20px;
-            display: none;
+            font-size: 1.2rem;
             animation: scrollUp 10s linear;
-            white-space: pre-wrap;
         }
 
         @keyframes scrollUp {
@@ -92,7 +72,6 @@
             font-size: 5rem;
             color: pink;
             animation: grow 2s ease-in-out forwards;
-            display: none;
         }
 
         @keyframes grow {
@@ -100,10 +79,15 @@
             100% { transform: scale(10); opacity: 0; }
         }
 
-        .message {
-            font-size: 3rem;
+        .sadMessage {
+            font-size: 4rem;
             color: red;
-            display: none;
+            animation: sadAnimation 3s forwards;
+        }
+
+        @keyframes sadAnimation {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
     </style>
 </head>
@@ -129,8 +113,7 @@
 
         <div class="muack" id="muack">¡Muaack!</div>
 
-        <div class="hearts" id="hearts"></div>
-        <div class="message" id="message">¿Por qué no me quieres? :c</div>
+        <div class="sadMessage" id="sadMessage">:(</div>
     </div>
 
     <script>
@@ -138,61 +121,40 @@
         const btnNo = document.getElementById('no');
         const poem = document.getElementById('poem');
         const muack = document.getElementById('muack');
-        const heartsContainer = document.getElementById('hearts');
-        const message = document.getElementById('message');
+        const sadMessage = document.getElementById('sadMessage');
         const mainContainer = document.getElementById('main');
-        let noClickCount = 0;
 
-        // Función para crear los corazones de Minecraft
-        function createHearts() {
-            for (let i = 0; i < 20; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDelay = Math.random() * 2 + 's';
-                heartsContainer.appendChild(heart);
-                setTimeout(() => heart.remove(), 4000);
-            }
-        }
-
-        // Función para mostrar el poema
+        // Mostrar poema
         function showPoem() {
             poem.style.display = 'block';
             setTimeout(() => {
                 poem.style.display = 'none';
                 muack.style.display = 'block';
-                muack.classList.add('grow');
                 setTimeout(() => {
-                    location.reload();
+                    location.reload(); // Regresa al menú principal
                 }, 2000);
-            }, 10000);
+            }, 10000); // Mostrar el poema durante 10 segundos
         }
 
-        // Función cuando se da click en "Sí"
+        // Mostrar ":(" y volver al menú
+        function showSadMessage() {
+            sadMessage.style.display = 'block';
+            setTimeout(() => {
+                sadMessage.style.display = 'none';
+                location.reload(); // Regresa al menú principal
+            }, 3000); // Mostrar ":(" durante 3 segundos
+        }
+
+        // Cuando se hace clic en "Sí"
         btnYes.addEventListener('click', () => {
-            createHearts();
-            showPoem();
+            mainContainer.style.display = 'none'; // Borra todo el menú principal
+            showPoem(); // Muestra el poema
         });
 
-        // Función cuando se da click en "No"
+        // Cuando se hace clic en "No"
         btnNo.addEventListener('click', () => {
-            noClickCount++;
-            // Si se hace clic en "No" 3 veces, desaparece el menú y muestra el mensaje
-            if (noClickCount >= 3) {
-                mainContainer.style.display = 'none'; // Oculta el menú principal
-                setTimeout(() => {
-                    message.style.display = 'block';
-                    setTimeout(() => {
-                        message.style.display = 'none';
-                        location.reload(); // Regresa al menú principal
-                    }, 3000);
-                }, 500);
-            } else {
-                // Mueve el botón "No"
-                btnNo.style.position = 'absolute';
-                btnNo.style.top = `${Math.random() * 80 + 10}%`;
-                btnNo.style.left = `${Math.random() * 80 + 10}%`;
-            }
+            mainContainer.style.display = 'none'; // Borra todo el menú principal
+            showSadMessage(); // Muestra ":("
         });
     </script>
 </body>
