@@ -7,224 +7,215 @@
     <style>
         body {
             margin: 0;
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             background-color: black;
             color: white;
-            overflow: hidden;
-            height: 100vh;
-        }
-
-        .container {
-            text-align: center;
-            padding: 20px;
-            position: relative;
-            height: 100%;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
         }
 
-        .title {
-            font-size: 2rem;
-            margin-bottom: 30px;
+        #content {
+            position: relative;
         }
 
-        .question {
-            font-size: 1.8rem;
-            margin: 20px 0;
+        #question {
+            font-size: 24px;
+            margin-bottom: 20px;
         }
 
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        .button {
+            background-color: #ff66b2;
             color: white;
-            background-color: #ff69b4;
+            font-size: 18px;
+            padding: 15px 25px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
         }
 
-        button:hover {
-            background-color: #ff1493;
+        .button:hover {
+            background-color: #ff3385;
+        }
+
+        #tulip {
+            margin-top: 30px;
         }
 
         .heart {
-            width: 30px;
-            height: 30px;
-            background: red;
             position: absolute;
-            top: 100%;
-            left: 50%;
-            animation: fall 4s linear infinite;
-            clip-path: polygon(50% 0%, 61% 16%, 75% 16%, 100% 50%, 50% 100%, 0% 50%, 25% 16%, 39% 16%);
+            font-size: 40px;
+            animation: heartAnimation 1s linear infinite;
         }
 
-        @keyframes fall {
+        @keyframes heartAnimation {
             0% {
-                transform: translateX(0) translateY(0);
-                opacity: 1;
+                transform: translateY(0);
             }
             100% {
-                transform: translateX(calc(-50vw + 100px)) translateY(-100vh);
+                transform: translateY(-100vh);
                 opacity: 0;
             }
         }
 
-        .muack {
-            font-size: 5rem;
-            color: pink;
-            animation: grow 2s ease-in-out forwards;
+        .fade-out {
+            animation: fadeOut 3s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        #poem {
+            font-size: 20px;
+            margin-top: 20px;
             display: none;
         }
 
-        @keyframes grow {
-            0% { transform: scale(0); }
-            100% { transform: scale(10); opacity: 0; }
+        #muack {
+            font-size: 50px;
+            color: #ff66b2;
+            display: none;
+            animation: muackAnimation 2s forwards;
         }
 
-        .poem {
-            font-size: 1.5rem;
-            animation: scrollUp 10s linear;
-            white-space: pre-wrap;
-            margin-top: 30px;
+        @keyframes muackAnimation {
+            0% {
+                font-size: 50px;
+                opacity: 1;
+            }
+            100% {
+                font-size: 200px;
+                opacity: 0;
+            }
         }
 
-        .crying-text {
-            font-size: 3rem;
-            color: red;
-            position: absolute;
+        .hidden {
+            display: none;
+        }
+
+        .center-text {
+            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            text-align: center;
-            display: none;
+            font-size: 30px;
         }
 
-        .copyright {
+        .noButton {
             position: absolute;
-            bottom: 10px;
-            left: 10px;
-            font-family: Arial, sans-serif;
-            font-size: 1rem;
-            color: white;
-            opacity: 0.5;
-        }
-
-        .image-container {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .image-container img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            transition: transform 0.2s;
-        }
-
-        .image-container img:hover {
-            transform: scale(1.1);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
 <body>
-    <div class="container" id="main">
-        <div class="title">Hola Sofi linda, cree esta página para recordarte que no debes preocuparte por ningún weón que no te ame, siempre serás mi amika y tqm. No te preocupes por esos que no te valoran.</div>
 
-        <div class="question">¿Tú me quieres?</div>
+    <div id="content">
+        <div id="question">
+            Hola Sofi linda, cree esta página para recordarte que no debes preocuparte por ningún weón que no te ame, siempre serás mi amika y tqm. No te preocupes por esos que no te valoran.
+        </div>
+        <div id="question" class="center-text">
+            ¿Tú me quieres?
+        </div>
+        <button class="button" id="yesButton">Sí</button>
+        <button class="button noButton" id="noButton">No</button>
 
-        <div class="buttons">
-            <button id="yes">Sí</button>
-            <button id="no">No</button>
+        <div id="tulip">
+            <img src="https://www.example.com/tulip.png" alt="Tulip" width="50">
+            <img src="https://www.example.com/tulip.png" alt="Tulip" width="50">
+            <img src="https://www.example.com/tulip.png" alt="Tulip" width="50">
+            <img src="https://www.example.com/tulip.png" alt="Tulip" width="50">
+            <img src="https://www.example.com/tulip.png" alt="Tulip" width="50">
         </div>
 
-        <div class="image-container">
-            <img src="https://via.placeholder.com/50" alt="Image 1">
-            <img src="https://via.placeholder.com/50" alt="Image 2">
-            <img src="https://via.placeholder.com/50" alt="Image 3">
-            <img src="https://via.placeholder.com/50" alt="Image 4">
-            <img src="https://via.placeholder.com/50" alt="Image 5">
+        <div id="poem" class="fade-out">
+            <p>Una linda noche y un bello horizonte,</p>
+            <p>nada se compara a tu belleza natural,</p>
+            <p>una niña con futuro, una niña sin igual.</p>
+            <p>En este tiempo de amistad, fuiste la mejor amiga que pude encontrar,</p>
+            <p>gracias por estar en mi vida, y siempre te voy a amar.</p>
+            <p>Ojalá tengas una linda noche, descanses y duermas en paz,</p>
+            <p>ya que siempre vas a tener un mejor amigo que te querrá sin igual.</p>
         </div>
 
-        <div class="crying-text" id="crying-text">POR QUE NO ME QUIERES :c</div>
-        <div class="copyright">© PiscisX</div>
+        <div id="muack" class="hidden">Muaack!</div>
+
     </div>
 
     <script>
-        const btnYes = document.getElementById('yes');
-        const btnNo = document.getElementById('no');
-        const cryingText = document.getElementById('crying-text');
-        const main = document.getElementById('main');
-
+        let yesButton = document.getElementById("yesButton");
+        let noButton = document.getElementById("noButton");
+        let tulip = document.getElementById("tulip");
+        let poem = document.getElementById("poem");
+        let muack = document.getElementById("muack");
+        let questionDiv = document.getElementById("question");
         let noClickCount = 0;
 
-        const poemText = `
-            Amiga querida, en cada paso del camino,
-            Tu amistad es un regalo divino.
-            En los días oscuros y en la alegría,
-            Contigo todo se torna armonía.
-            Nunca olvides cuánto te valoro, oda lindota,
-            Eres un tesoro que siempre atesoro.
-        `;
-
-        btnYes.addEventListener('click', () => {
-            // Lluvia de corazones
-            for (let i = 0; i < 5; i++) {
-                createHeart();
-            }
-
-            // Mostrar el poema durante 10 segundos
-            main.innerHTML = `
-                <div class="title">Poema para ti:</div>
-                <div class="poem">${poemText}</div>
-            `;
-
-            // Mostrar el muack
+        yesButton.addEventListener("click", () => {
+            tulip.classList.add("hidden");
+            poem.style.display = "block";
             setTimeout(() => {
-                main.innerHTML += '<div class="muack">¡Muaack!</div>';
-                const muack = document.querySelector('.muack');
-                muack.style.display = 'block';
-                muack.classList.add('grow');
-
-                // Regresar al menú principal
-                setTimeout(() => {
-                    location.reload();
-                }, 2000);
-            }, 10000);
+                muack.style.display = "block";
+            }, 10000); // After 10 seconds, show "Muaack!"
+            setTimeout(() => {
+                location.reload();
+            }, 12000); // After 12 seconds, reload page
         });
 
-        btnNo.addEventListener('click', () => {
+        noButton.addEventListener("click", () => {
             noClickCount++;
-
-            if (noClickCount >= 3) {
-                cryingText.style.display = 'block';
-
-                // Desaparecer el mensaje después de 3 segundos
+            if (noClickCount < 3) {
+                let newNoButton = document.createElement("button");
+                newNoButton.textContent = "No";
+                newNoButton.classList.add("button");
+                newNoButton.style.position = "absolute";
+                newNoButton.style.left = `${Math.random() * window.innerWidth}px`;
+                newNoButton.style.top = `${Math.random() * window.innerHeight}px`;
+                document.body.appendChild(newNoButton);
+                newNoButton.addEventListener("click", () => {
+                    newNoButton.style.left = `${Math.random() * window.innerWidth}px`;
+                    newNoButton.style.top = `${Math.random() * window.innerHeight}px`;
+                });
+            } else {
+                questionDiv.textContent = "¿Por qué no me quieres? :c";
+                questionDiv.classList.add("fade-out");
                 setTimeout(() => {
-                    cryingText.style.display = 'none';
                     location.reload();
-                }, 3000);
+                }, 3000); // After 3 seconds, reload page
             }
         });
 
-        // Función para crear corazones
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-            document.body.appendChild(heart);
+        // Function to create Minecraft-style hearts
+        function createHearts() {
+            for (let i = 0; i < 100; i++) { // Creating 100 hearts to make it abundant
+                let heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.textContent = "💖"; // Minecraft style heart as emoji (to mimic blocks)
+                heart.style.left = `${Math.random() * window.innerWidth}px`;
+                heart.style.top = `${Math.random() * window.innerHeight}px`;
+                document.body.appendChild(heart);
+                setTimeout(() => {
+                    heart.remove();
+                }, 1000); // Heart disappears after 1 second
+            }
         }
+
+        yesButton.addEventListener("click", () => {
+            createHearts();
+        });
     </script>
+
 </body>
 </html>
