@@ -134,6 +134,8 @@
             color: red;
             text-shadow: 0 0 10px red, 0 0 20px red;
             animation: bloodAnim 1s infinite;
+            opacity: 0;
+            text-align: center;
         }
 
         @keyframes bloodAnim {
@@ -181,6 +183,7 @@
         const heartsContainer = document.getElementById('hearts');
         const poem = document.getElementById('poem');
         const muack = document.getElementById('muack');
+        const bloodText = document.createElement('div');
         const main = document.getElementById('main');
 
         let noClickCount = 0;
@@ -206,14 +209,13 @@
             noClickCount++;
 
             if (noClickCount >= 3) {
-                main.innerHTML = '<div class="blood-text">¿Por qué no me quieres?</div>';
+                bloodText.className = 'blood-text';
+                bloodText.textContent = '¿Por qué no me quieres?';
+                main.appendChild(bloodText);
+                bloodText.style.opacity = 1;
 
                 setTimeout(() => {
-                    main.innerHTML = '<div style="color: white; font-size: 2rem; text-align: center; animation: fadeIn 2s;">Disculpa querida XD</div>';
-
-                    setTimeout(() => {
-                        location.reload();
-                    }, 3000);
+                    location.reload();
                 }, 5000);
             } else {
                 btnNo.style.position = 'absolute';
